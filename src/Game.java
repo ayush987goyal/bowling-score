@@ -19,22 +19,32 @@ public class Game {
 
 	public int getScore() {
 		int total = 0;
+
+		for (Integer score : getFramewiseScore()) {
+			total += score;
+		}
+
+		return total;
+	}
+
+	public ArrayList<Integer> getFramewiseScore() {
+		ArrayList<Integer> scores = new ArrayList<>();
 		int currIndex = 0;
 
 		for (int i = 0; i < 10; i++) {
 			if (isStrike(currIndex)) {
-				total += 10 + this.rolls.get(currIndex + 1) + this.rolls.get(currIndex + 2);
+				scores.add(10 + this.rolls.get(currIndex + 1) + this.rolls.get(currIndex + 2));
 				currIndex++;
 			} else if (isSpare(currIndex)) {
-				total += 10 + this.rolls.get(currIndex + 2);
+				scores.add(10 + this.rolls.get(currIndex + 2));
 				currIndex += 2;
 			} else {
-				total += this.rolls.get(currIndex) + this.rolls.get(currIndex + 1);
+				scores.add(this.rolls.get(currIndex) + this.rolls.get(currIndex + 1));
 				currIndex += 2;
 			}
 		}
 
-		return total;
+		return scores;
 	}
 
 	private boolean isStrike(int index) {
